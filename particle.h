@@ -45,7 +45,7 @@ struct Particle {
 			pos[1] = 0;
 			if(velo[1] < 0) {
 				velo[1] = -1.0 * coeff_resititution * velo[1];
-				velo[1] *= damping;
+				velo[0] *= damping;
 				velo[2] *= damping;
 			}
 		}
