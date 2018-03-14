@@ -28,7 +28,7 @@ void draw_obj(obj *o, const gl_image_texture_map& textures);
 vector<Particle> vec_particle;
 
 default_random_engine g;
-uniform_real_distribution<float> r(0.0, 0.2);
+uniform_real_distribution<float> r(-0.2, 0.2);
 uniform_real_distribution<float> yu(1.0, 10.0);
 
 void Add_Particles(int n) {
@@ -37,7 +37,7 @@ void Add_Particles(int n) {
 		temp.mass = 1.0;
 		temp.pos = vec3(r(g), 0.05, r(g));
 		temp.velo = vec3(10*temp.pos[0], yu(g), 10*temp.pos[2]);
-		temp.color = vec3(255, 255, 0);
+		temp.color = vec3(1, 1, 0);
 		
 		vec_particle.push_back(temp);
 	}
@@ -46,13 +46,13 @@ void Add_Particles(int n) {
 void Draw_Particle(){
 	for(unsigned int i = 0; i < vec_particle.size(); i++)
 	{
+		glColor3f(vec_particle[i].color[0], vec_particle[i].color[1], vec_particle[i].color[2]);
 		glVertex3f(vec_particle[i].pos[0], vec_particle[i].pos[1], vec_particle[i].pos[2]);
 		glVertex3f(vec_particle[i].pos[0] + 0.04*vec_particle[i].velo[0],
 					vec_particle[i].pos[1] + 0.04*vec_particle[i].velo[1],
 					vec_particle[i].pos[2] + 0.04*vec_particle[i].velo[2]);
 	}
 }
-
 
 void set_pixel(int x, int y, float col[3])
 {
@@ -170,7 +170,7 @@ void application::draw_event()
 			vec_particle[j].Euler_Step(0.01);
 			
 			vec_particle[j].Handle_Collision(0.5, 0.5); // Refer to Last Page #7
-			glColor3f(255,255,0);
+			//glColor3f(255,255,0);
 		}
         //
         // UPDATE THE COLOR OF THE PARTICLE DYNAMICALLY
